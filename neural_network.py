@@ -98,7 +98,8 @@ if __name__ == "__main__":
     # plt.show()
 
     neural_net = NeuralNetwork()
-    # neural_net.open_load()
+
+    neural_net.open_load()
 
     neural_net.train(x_train, y_train)
     neural_net.feed_forward(x_test[0])
