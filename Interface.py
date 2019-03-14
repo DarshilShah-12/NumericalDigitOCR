@@ -4,13 +4,13 @@ grid_size = 28
 pos = 20
 rad = 10
 grid = []
+digit = "0"
 
 win = GraphWin("Natural Digit Reader", (grid_size + 1)*pos, (grid_size + 3)*pos)
 submitted = False
 
-
 def main():
-    global submitted, grid, win
+    global submitted, grid, win, digit
 
     win.bind('<B1-Motion>', drag)
 
@@ -23,11 +23,16 @@ def main():
     refresh_text = Text(Point(0.125*(grid_size + 1)*pos, (grid_size + 1.75)*pos), "Refresh")
     refresh_button.draw(win)
     refresh_text.draw(win)
+
+    digit_intro = Text(Point(0.8*(grid_size + 1)*pos, (grid_size + 1.75)*pos), "Number:")
+    digit_text = Text(Point(0.875*(grid_size + 1)*pos, (grid_size + 1.75)*pos), digit)
+    digit_text.setSize(18)
+    digit_intro.draw(win)
     
     for i in range(grid_size):
         grid.append([])
         for j in range(grid_size):
-            grid[i].append(Node((i+1)*pos, (j+1)*pos, rad))
+            grid[i].append(Node((j+1)*pos, (i+1)*pos, rad))
 
 
     for i in range(len(grid)):
@@ -41,11 +46,13 @@ def main():
         y = click.getY()
 
         if((x >= submit_button.getP1().getX() and x <= submit_button.getP2().getX()) and (y >= submit_button.getP1().getY() and y <= submit_button.getP2().getY())):
-            print(submit(grid))
+            submit(grid)
+            digit_text.draw(win)
             submitted = True
         
         elif((x >= refresh_button.getP1().getX() and x <= refresh_button.getP2().getX()) and (y >= refresh_button.getP1().getY() and y <= refresh_button.getP2().getY())):
             clear(grid)
+            digit_text.undraw()
             submitted = False
 
         elif(not submitted):
@@ -84,7 +91,7 @@ class Node(Circle):
 
     def clear(self):
         if(self.filled):
-            self.setFill(color="white")
+            self.setFill(color="")
             self.filled = not self.filled
 
     def isFilled(self):
@@ -95,6 +102,8 @@ class Node(Circle):
         
 
 def submit(grid):
+    global digit
+
     values = ""
 
     for i in range(len(grid)):
@@ -103,16 +112,20 @@ def submit(grid):
                 values += '1'
             else:
                 values += '0'
-    
-    return values
+
+    # digit = pass values to handwritten digit recognizer
+
+    # print(values)
 
 
 def clear(grid):
     for i in range(len(grid)):
         for j in range(len(grid[i])):
             grid[i][j].clear()
+            grid[i][j].undraw()
+            grid[i][j].draw(win)
     
-    print('Grid Cleared')
+    # print('Grid Cleared')
 
 
 def drag(event):
@@ -126,6 +139,10 @@ def drag(event):
             for j in range(len(grid[i])):
                 if(grid[i][j].inside(x,y)):
                     grid[i][j].fill()
+                    break
+            else:
+                continue
+            break
 
-if __name__ == '__main__':
-    main()
+
+main()
