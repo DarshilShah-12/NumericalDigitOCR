@@ -2,10 +2,11 @@ import keras
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-
+from sklearn import datasets
 
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
+
 
 def sigmoid_derivative(sig):
     return sig * (1 - sig)
@@ -29,14 +30,10 @@ def sigmoid_derivative(sig):
 class NeuralNetwork:
     def __init__(self):
         self.input = np.zeros((784, 1))
-        self.weights_1 = 2 * (np.random.rand(48, 784)) - 1
-        self.weights_2 = 2 * (np.random.rand(10, 48)) - 1
-        self.bias_1 = np.random.rand(48, 1)
-        self.bias_2 = np.random.rand(10, 1)
-        self.z_1 = np.zeros((48, 1))
-        self.z_2 = np.zeros((10, 1))
-        self.activation_1 = np.zeros((48, 1))
-        self.activation_2 = np.zeros((10, 1))
+        self.weights = 2 * np.random.rand(10, 784) - 1
+        self.bias = np.random.rand(10, 1)
+        self.z = np.zeros((10, 1))
+        self.activation = np.zeros((10, 1))
 
     def feed_forward(self, input):
         '''
@@ -44,11 +41,9 @@ class NeuralNetwork:
         :return: none
         This function passes the input image and feeds forward to the hidden layer and ultimately the output layer
         '''
-        self.input = input.flatten().reshape(784, 1)
-        self.z_1 = np.dot(self.weights_1, self.input) + self.bias_1
-        self.activation_1 = sigmoid(self.z_1)
-        self.z_2 = np.dot(self.weights_2, self.activation_1) + self.bias_2
-        self.activation_2 = sigmoid(self.z_2)
+        self.input = input.flatten().reshape(784, 1) / 255
+        self.z = np.dot(self.weights, self.input) + self.bias
+        self.activation = sigmoid(self.z)
 
     def backprop(self, input, label):
         '''
@@ -60,23 +55,25 @@ class NeuralNetwork:
         #TODO: work in progress... does not work
         y = np.zeros((10, 1))
         y[label] = 1
-        loss = self.activation_2 - y
-        gradient_approx_2 = np.zeros((10, 48))
+        loss = self.activation - y
+        gradient = np.zeros((10, 784))
 
-        for j in range(len(gradient_approx_2)):
-            for k in range(len(gradient_approx_2[j])):
-                gradient_approx_2[j][k] = 2 * loss[j] * sigmoid_derivative(self.z_2[j]) * self.activation_1[k]
+        for j in range(len(gradient)):
+            for k in range(len(gradient[j])):
+                gradient[j][k] = 2 * loss[j] * sigmoid_derivative(self.z[j]) * self.input[k]
 
-        return gradient_approx_2
+        return gradient
 
     def train(self, inputs, labels):
         #TODO: Also work in progress.
-        gradient_approximator_2 = np.zeros((10, 48))
-        for i in range(1000):
+        gradient_approximator = np.zeros((10, 784))
+        for i in range(100):
             self.feed_forward(inputs[i])
-            gradient_approximator_2 += self.backprop(inputs[i], labels[i])
-        gradient_approximator_2 /= 1000
-        self.weights_2 -= gradient_approximator_2
+            gradient_approximator += self.backprop(inputs[i], labels[i])
+        gradient_approximator = gradient_approximator / 1000
+        self.weights -= gradient_approximator
+        self.feed_forward(inputs[0])
+        print(self.activation)
 
     def open_load(self):
         self.weights_1 = np.loadtxt('weights_1.csv', delimiter=',')
@@ -97,9 +94,14 @@ if __name__ == "__main__":
     # plt.imshow(x_train[0], cmap='Greys')
     # plt.show()
 
+    # TODO: scikit-learn's digit database of 8x8 images
+    digits = datasets.load_digits()
+
+    plt.imshow(digits['images'][5], cmap='Greys')
+    plt.show()
     neural_net = NeuralNetwork()
 
-    neural_net.open_load()
+    # neural_net.open_load()
 
     neural_net.train(x_train, y_train)
     neural_net.feed_forward(x_test[0])
