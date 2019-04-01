@@ -1,8 +1,9 @@
 from graphics import *
 
 grid_size = 28
-pos = 20
-rad = 10
+radius = 10
+pos = 2*radius
+
 grid = []
 digit = "0"
 
@@ -32,7 +33,7 @@ def main():
     for i in range(grid_size):
         grid.append([])
         for j in range(grid_size):
-            grid[i].append(Node((j+1)*pos, (i+1)*pos, rad))
+            grid[i].append(Node((j+1)*pos, (i+1)*pos, radius))
 
 
     for i in range(len(grid)):
@@ -78,7 +79,7 @@ class Node(Circle):
     
     def changeColour(self):
         if(self.filled):
-            self.setFill(color="white")
+            self.setFill(color="")
         else:
             self.setFill(color="black")
         
