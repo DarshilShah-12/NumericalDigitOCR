@@ -8,26 +8,24 @@ def sigmoid(x):
 
 def first_order_sigmoid_derivative(x):
     return sigmoid(x)*(1-sigmoid(x))
-    # return np.exp(x/1000)/(1000*(np.exp(x/1000) + 1)**2)
 
 class NeuralNetwork:
     def __init__(self):
         self.input = np.zeros((64, 1))
-        self.weights = np.random.rand(10, 64)
-        # self.weights = np.zeros((10, 64))
+        self.weights_input_to_hidden_layer = 2*np.random.rand(10, 64) - 1
+        self.hidden_layer = np.zeros((48, 1))
         self.z = np.zeros((10, 1))
         self.final_activation_values = np.zeros((10, 1))
 
     def feed_forward(self, singular_input_matrix):
         self.input = singular_input_matrix.flatten().reshape(64, 1)/15
-        self.z = np.dot(self.weights, self.input) - 10
+        self.z = np.dot(self.weights, self.input)
         self.final_activation_values = sigmoid(self.z)
 
     def back_propagation(self, singular_matrix_label):
         expected_activation_values = np.zeros((10, 1))
         expected_activation_values[singular_matrix_label] = 1
         instance_diff = self.final_activation_values - expected_activation_values
-        # Divide by 0.999999 and see what the domain of the sigmoid function is here
         gradient = np.zeros((10, 64))
 
         for j in range(len(gradient)):
@@ -45,7 +43,6 @@ class NeuralNetwork:
         correct_tally = 0
         for m in range(len(test_matrices)):
             self.feed_forward(test_matrices[m])
-            # print(np.argmax(self.final_activation_values))
             if np.argmax(self.final_activation_values) == test_labels[m]:
                 correct_tally += 1
         print("Runtime Accuracy: " + str(round(correct_tally*100/len(test_matrices), 2)) + "%")
