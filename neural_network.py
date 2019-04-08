@@ -114,8 +114,8 @@ class NeuralNetwork:
         # self.bias_2 = np.loadtxt('bias_2.csv', delimiter=',').reshape(10, 1)
 
     def save(self):
-        np.savetxt('weights_1.csv', self.wh, delimiter='\t', fmt='%f')
-        np.savetxt('weights_2.csv', self.wo, delimiter='\t', fmt='%f')
+        np.savetxt('weights_1.csv', self.wh, delimiter=',', fmt='%f')
+        np.savetxt('weights_2.csv', self.wo, delimiter=',', fmt='%f')
         # np.savetxt('bias_1.csv', self.bias_1, delimiter=',', fmt='%f')
         # np.savetxt('bias_2.csv', self.bias_2, delimiter=',', fmt='%f')
 
