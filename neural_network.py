@@ -107,9 +107,17 @@ class NeuralNetwork:
 
         print(f'Accuracy: {success/len(inputs) * 100}%')
 
+    def output(self, image):
+        """
+        :param image: 28x28 ndarray
+        :return: int 0 - 9
+        """
+        self.feed_forward(image)
+        return self.ao.argmax()
+
     def open_load(self):
-        self.wh = np.loadtxt('weights_1.csv', delimiter='\t')
-        self.wo = np.loadtxt('weights_2.csv', delimiter='\t')
+        self.wh = np.loadtxt('weights_1.csv', delimiter=',')
+        self.wo = np.loadtxt('weights_2.csv', delimiter=',')
         # self.bias_1 = np.loadtxt('bias_1.csv', delimiter=',').reshape(48, 1)
         # self.bias_2 = np.loadtxt('bias_2.csv', delimiter=',').reshape(10, 1)
 
@@ -131,10 +139,10 @@ if __name__ == "__main__":
 
     neural_net.open_load()
 
-    neural_net.train(x_train, y_train)
-    neural_net.test(x_test, y_test)
-    neural_net.save()
-    print()
+    # neural_net.train(x_train, y_train)
+    # neural_net.test(x_test, y_test)
+    # neural_net.save()
 
-
-
+    data = [[1, 2], [3, 4]]
+    image = np.array(data)
+    # TODO: image goes here ^
