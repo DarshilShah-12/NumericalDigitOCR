@@ -135,9 +135,9 @@ if __name__ == "__main__":
     # plt.imshow(x_train[0], cmap='Greys')
     # plt.show()
 
-    neural_net = NeuralNetwork()
+    # neural_net = NeuralNetwork()
 
-    neural_net.open_load()
+    # neural_net.open_load()
 
     # neural_net.train(x_train, y_train)
     # neural_net.test(x_test, y_test)

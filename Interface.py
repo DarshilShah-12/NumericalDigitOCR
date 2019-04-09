@@ -1,6 +1,7 @@
 from graphics import *
 import numpy as np
-# from neural_network import *
+import neural_network
+
 
 grid_size = 28
 radius = 10
@@ -120,8 +121,10 @@ def submit(grid):
     np_values = np.array(values)
 
     # print (np_values)
-
-    return str(output(np_values))
+    neural_net = neural_network.NeuralNetwork()
+    neural_net.open_load()
+    output = neural_net.output(np_values)
+    return str(output)
 
 
 def clear(grid):
