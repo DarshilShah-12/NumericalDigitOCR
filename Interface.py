@@ -1,11 +1,13 @@
 from graphics import *
+import numpy as np
+# from neural_network import *
 
 grid_size = 28
 radius = 10
 pos = 2*radius
 
 grid = []
-digit = "0"
+digit = ""
 
 win = GraphWin("Natural Digit Reader", (grid_size + 1)*pos, (grid_size + 3)*pos)
 submitted = False
@@ -47,7 +49,7 @@ def main():
         y = click.getY()
 
         if((x >= submit_button.getP1().getX() and x <= submit_button.getP2().getX()) and (y >= submit_button.getP1().getY() and y <= submit_button.getP2().getY())):
-            submit(grid)
+            digit_text.setText(submit(grid))
             digit_text.draw(win)
             submitted = True
         
@@ -108,15 +110,18 @@ def submit(grid):
     values = []
 
     for i in range(len(grid)):
-        for j in range(len(grid[i])):
+        values.append([])
+        for j in range(len(grid)):
             if(grid[i][j].isFilled()):
-                values.append(1)
+                values[i].append(1)
             else:
-                values.append(0)
+                values[i].append(0)
 
-    # digit = pass values to handwritten digit recognizer
+    np_values = np.array(values)
 
-    # print(values)
+    # print (np_values)
+
+    return str(output(np_values))
 
 
 def clear(grid):
