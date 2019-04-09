@@ -105,14 +105,14 @@ class Node(Circle):
 def submit(grid):
     global digit
 
-    values = ""
+    values = []
 
     for i in range(len(grid)):
         for j in range(len(grid[i])):
             if(grid[i][j].isFilled()):
-                values += '1'
+                values.append(1)
             else:
-                values += '0'
+                values.append(0)
 
     # digit = pass values to handwritten digit recognizer
 
