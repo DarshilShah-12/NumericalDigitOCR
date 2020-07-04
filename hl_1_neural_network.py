@@ -36,12 +36,14 @@ class NeuralNetwork:
         self.input = np.zeros((784, 1))
         self.wh = 2 * np.random.rand(48, 784) - 1
         self.wo = 2 * np.random.rand(10, 48) - 1
-        # self.b1 = np.random.rand(48, 1)
-        # self.b2 = np.random.rand(10, 1)
+        self.b1 = np.random.rand(48, 1)
+        self.b2 = np.random.rand(10, 1)
         self.zh = np.zeros((48, 1))
         self.zo = np.zeros((10, 1))
         self.ah = np.zeros((48, 1))
         self.ao = np.zeros((10, 1))
+        self.biases_path = "learnable_parameters/biases/"
+        self.weights_path = "learnable_parameters/weights/"
 
     def feed_forward(self, data):
         """
@@ -67,32 +69,28 @@ class NeuralNetwork:
 
         # region Phase 1: Output Weights
 
-        # cost = 0.5 * np.power((self.ao - y), 2)
-
         dc_dao = np.array(self.ao - y)
         dao_dzo = sigmoid_derivative(self.zo)
         dzo_dwo = self.ah
 
         dc_dwo = np.dot(dc_dao * dao_dzo, dzo_dwo.T)
-        # dc_dwo = np.dot(dzo_dwo, (dc_dao * dao_dzo).T)
-
         # endregion
+
         # region Phase 2: Hidden Weights
         dc_dzo = dc_dao * dao_dzo
         dzo_dah = self.wo
         dc_dah = np.dot(dc_dzo.T, dzo_dah).T
-        # dc_dah = np.dot(dc_dzo, dzo_dah.T)
         dah_dzh = sigmoid_derivative(self.zh)
         dzh_dwh = self.input
 
         dc_dwh = np.dot(dc_dah * dah_dzh, dzh_dwh.T)
-
         # endregion
+
         self.wo -= learning_rate * dc_dwo
         self.wh -= learning_rate * dc_dwh
 
     def train(self, inputs, labels):
-        for epoch in range(60000):
+        for epoch in range(len(inputs)):
             self.feed_forward(inputs[epoch])
             self.backprop(labels[epoch])
 
@@ -102,10 +100,8 @@ class NeuralNetwork:
             self.feed_forward(inputs[i])
             if self.ao.argmax() == labels[i]:
                 success += 1
-            else:
-                print()
 
-        print(f'Accuracy: {success/len(inputs) * 100}%')
+        print(f'Accuracy: {round(success/len(inputs) * 100, 2)}%')
 
     def output(self, image):
         """
@@ -116,32 +112,21 @@ class NeuralNetwork:
         return self.ao.argmax()
 
     def open_load(self):
-        self.wh = np.loadtxt('weights_1.csv', delimiter=',')
-        self.wo = np.loadtxt('weights_2.csv', delimiter=',')
-        # self.bias_1 = np.loadtxt('bias_1.csv', delimiter=',').reshape(48, 1)
-        # self.bias_2 = np.loadtxt('bias_2.csv', delimiter=',').reshape(10, 1)
+        self.wh = np.loadtxt(self.weights_path + 'weights_1.csv', delimiter=',')
+        self.wo = np.loadtxt(self.weights_path + 'weights_2.csv', delimiter=',')
 
     def save(self):
-        np.savetxt('weights_1.csv', self.wh, delimiter=',', fmt='%f')
-        np.savetxt('weights_2.csv', self.wo, delimiter=',', fmt='%f')
-        # np.savetxt('bias_1.csv', self.bias_1, delimiter=',', fmt='%f')
-        # np.savetxt('bias_2.csv', self.bias_2, delimiter=',', fmt='%f')
-
+        np.savetxt(self.weights_path + 'weights_1.csv', self.wh, delimiter=',', fmt='%f')
+        np.savetxt(self.weights_path + 'weights_2.csv', self.wo, delimiter=',', fmt='%f')
 
 if __name__ == "__main__":
     (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
 
-    # Show first training image
-    # plt.imshow(x_train[0], cmap='Greys')
-    # plt.show()
-
-    # neural_net = NeuralNetwork()
-
-    # neural_net.open_load()
-
-    # neural_net.train(x_train, y_train)
-    # neural_net.test(x_test, y_test)
-    # neural_net.save()
+    neural_net = NeuralNetwork()
+    neural_net.open_load()
+    neural_net.train(x_train, y_train)
+    neural_net.test(x_test, y_test)
+    neural_net.save()
 
     data = [[1, 2], [3, 4]]
     image = np.array(data)
