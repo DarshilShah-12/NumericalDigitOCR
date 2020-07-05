@@ -5,6 +5,11 @@ This is an introductory project developed for the purpose of empirically underst
 [![Demo CountPages alpha](visual_media/demo.gif)]()
 
 # Run It Yourself
+1. Clone this repository.
+2. Ensure you have all the Python packages list in *requirements.txt* installed. Otherwise, you can simply run `pip install -r requirements.txt`.
+3. Run *main.py*.
+
+By default, the interface is setup to use the neural network with one hidden layer. However, if you would like to try out the neural network with zero hidden layers to see the functional difference, simply replace __h1_1_neural_network__ with __hl_0_neural_network__ on Line 5 of *main.py*.
 
 # Development Notes
 As the goal of this project was to learn as much as possible, we performed all the mathematical calculations involved for components such as gradient descent and backpropagation manually using our knowledge of differential calculus and linear algebra rather than constructing the model in a framework like Keras. This is obviously not a best practice for a project used in production; however, for the purpose of learning, this strengthened our understanding of fundamentals picked up in the classroom and allowed us to put them to practical use.
@@ -20,5 +25,3 @@ With these two layers in common, we designed two variations when it came to the 
   <img src="visual_media/hl_0_nn.jpg" height="400" />
   <img src="visual_media/hl_1_nn.jpg" height="400" />
 </p>
-
-# Results
