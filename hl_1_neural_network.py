@@ -42,7 +42,6 @@ class NeuralNetwork:
         self.zo = np.zeros((10, 1))
         self.ah = np.zeros((48, 1))
         self.ao = np.zeros((10, 1))
-        self.biases_path = "learnable_parameters/biases/"
         self.weights_path = "learnable_parameters/weights/"
 
     def feed_forward(self, data):
@@ -127,7 +126,3 @@ if __name__ == "__main__":
     neural_net.train(x_train, y_train)
     neural_net.test(x_test, y_test)
     neural_net.save()
-
-    data = [[1, 2], [3, 4]]
-    image = np.array(data)
-    # TODO: image goes here ^

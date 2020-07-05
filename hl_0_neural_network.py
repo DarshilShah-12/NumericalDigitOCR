@@ -15,6 +15,7 @@ class NeuralNetwork:
         self.weights = 2 * np.random.rand(10, 784) - 1
         self.z = np.zeros((10, 1))
         self.activation = np.zeros((10, 1))
+        self.weights_path = "learnable_parameters/weights/"
 
     def feed_forward(self, input):
         self.input = input.flatten().reshape(784, 1) / 255
@@ -46,15 +47,16 @@ class NeuralNetwork:
         print("Runtime Accuracy: " + str(round(correct_tally * 100 / len(test_matrices), 2)) + "%")
 
     def open_load(self):
-        self.weights = np.loadtxt('weights.csv', delimiter=',')
+        self.weights = np.loadtxt(self.weights_path + 'weights.csv', delimiter=',')
 
     def save(self):
-        np.savetxt('weights.csv', self.weights, delimiter=',', fmt='%f')
+        np.savetxt(self.weights_path + 'weights.csv', self.weights, delimiter=',', fmt='%f')
 
 if __name__ == "__main__":
     (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
-    neural_net = NeuralNetwork()
 
+    neural_net = NeuralNetwork()
+    neural_net.open_load()
     neural_net.train(x_train, y_train)
     neural_net.test_accuracy(x_test, y_test)
     neural_net.save()
