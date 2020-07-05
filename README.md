@@ -15,3 +15,7 @@ The MNIST database we used provided 28x28 images of numerical digits. Flattening
 
 With these two layers in common, we designed two variations when it came to the hidden layers. The first model has 0 hidden layers. This means that it is a direct mapping from the input of pixels to an output. The second model has 1 hidden layer. Please note that the visualizations illustrated below are scaled down by an approximate factor of 10 for the purpose of having a reasonably-sized image.
 
+<p align="middle" style="padding: 120px;">
+  <img src="visual_media/hl_0_nn.jpg" height="500" />
+  <img src="visual_media/hl_1_nn.jpg" height="500" />
+</p>
