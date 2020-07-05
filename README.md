@@ -9,7 +9,7 @@ This is an introductory project developed for the purpose of empirically underst
 # Development Notes
 As the goal of this project was to learn as much as possible, we performed all the mathematical calculations involved for components such as gradient descent and backpropagation manually using our knowledge of differential calculus and linear algebra rather than constructing the model in a framework like Keras. This is obviously not a best practice for a project used in production; however, for the purpose of learning, this strengthened our understanding of fundamentals picked up in the classroom and allowed us to put them to practical use.
 
-# Neural Network Architectures
+# Neural Network Architecture
 We used an Artificial Neural Network (ANN) because of the simple nature of the problem we are trying to solve. However, for more complex image recognition problems, a CNN would probably be preferred.
 
 The MNIST database we used provided 28x28 images of numerical digits. Flattening this input out led to input layer with 784 nodes. As the output is singular numerical digits, the range of digits is 0-9 and so we have 10 output nodes.
