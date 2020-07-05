@@ -2,6 +2,7 @@
 This is an introductory project developed for the purpose of empirically understanding more about neural networks. Consider this the "Hello World" equivalent for machine learning. For training and testing, we used the MNIST database of handwritten digits, which can be found here: http://yann.lecun.com/exdb/mnist/
 
 # Demo
+[![Demo CountPages alpha](visual_media/demo.gif)]()
 
 # Run It Yourself
 
@@ -18,8 +19,6 @@ With these two layers in common, we designed two variations when it came to the 
 <p align="middle">
   <img src="visual_media/hl_0_nn.jpg" height="400" />
   <img src="visual_media/hl_1_nn.jpg" height="400" />
-  <p>Neural Network #1: 0 Hidden Layers
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Neural Network #2: 1 Hidden Layer</p>
 </p>
 
 # Results
