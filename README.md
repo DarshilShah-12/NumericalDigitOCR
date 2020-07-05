@@ -13,7 +13,7 @@ We used an Artificial Neural Network (ANN) because of the simple nature of the p
 
 The MNIST database we used provided 28x28 images of numerical digits. Flattening this input out led to input layer with 784 nodes. As the output is singular numerical digits, the range of digits is 0-9 and so we have 10 output nodes.
 
-With these two layers in common, we designed two variations when it came to the hidden layers. The first model has 0 hidden layers. This means that it is a direct mapping from the input of pixels to an output. The second model has 1 hidden layer. Please note that the visualizations illustrated below are scaled down by an approximate factor of 10 for the purpose of having a reasonably-sized image.
+With these two layers in common, we designed two variations when it came to the hidden layers. The first model has 0 hidden layers. This means that it is a direct mapping from the input of pixels to an output. The second model has 1 hidden layer. Please note that the input layer has been scaled down by an approximate factor of 10 (from 784 to 78) in the visualizations illustrated below.
 
 <p align="middle">
   <img src="visual_media/hl_0_nn.jpg" height="530" />
