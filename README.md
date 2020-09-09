@@ -1,5 +1,5 @@
 # Numerical Digit OCR
-This is an introductory project developed for the purpose of empirically understanding more about neural networks. Consider this the "Hello World" equivalent for machine learning. For training and testing, we used the MNIST database of handwritten digits, which can be found here: http://yann.lecun.com/exdb/mnist/
+This is an introductory project developed for the purpose of empirically understanding more about neural networks. Consider this the "Hello World" equivalent for machine learning. For training and testing, we used the MNIST database of handwritten digits, which can be found here: http://yann.lecun.com/exdb/mnist/.
 
 # Demo
 [![Demo CountPages alpha](visual_media/demo.gif)]()
