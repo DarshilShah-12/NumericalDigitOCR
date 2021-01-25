@@ -6,7 +6,7 @@ This is an introductory project developed for the purpose of empirically underst
 
 # Run It Yourself
 1. Clone this repository.
-2. Ensure you have all the Python packages list in *requirements.txt* installed. Otherwise, you can simply run `pip install -r requirements.txt`.
+2. Ensure you have all the Python packages list in *requirements.txt* installed. Otherwise, you can simply run `pip3 install -r requirements.txt`.
 3. Run *main.py*.
 
 By default, the interface is setup to use the neural network with one hidden layer. However, if you would like to try out the neural network with zero hidden layers to see the functional difference, simply replace __h1_1_neural_network__ with __hl_0_neural_network__ on Line 5 of *main.py*.
